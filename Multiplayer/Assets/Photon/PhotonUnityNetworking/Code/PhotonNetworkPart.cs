@@ -354,6 +354,7 @@ namespace Photon.Pun
         /// <summary>
         /// Executes a received RPC event
         /// </summary>
+        [Obsolete]
         internal static void ExecuteRpc(Hashtable rpcData, Player sender)
         {
             if (rpcData == null || !rpcData.ContainsKey(keyByteZero))
@@ -1191,7 +1192,7 @@ namespace Photon.Pun
         static ExitGames.Client.Photon.Hashtable rpcEvent = new ExitGames.Client.Photon.Hashtable();
         static RaiseEventOptions RpcOptionsToAll = new RaiseEventOptions();
 
-
+        [Obsolete]
         internal static void RPC(PhotonView view, string methodName, RpcTarget target, Player player, bool encrypt, params object[] parameters)
         {
             if (blockedSendingGroups.Contains(view.Group))
@@ -2185,7 +2186,7 @@ namespace Photon.Pun
             SendAllOutgoingCommands(); // send immediately! because: in most cases the client will begin to load and pause sending anything for a while
         }
 
-
+        [Obsolete]
         private static void OnEvent(EventData photonEvent)
         {
             int actorNr = photonEvent.Sender;
@@ -2543,7 +2544,7 @@ namespace Photon.Pun
             #if DEVELOPMENT_BUILD || UNITY_EDITOR
             if (!string.IsNullOrEmpty(PhotonServerSettings.DevRegion) && ConnectMethod == ConnectMethod.ConnectToBest)
             {
-                Debug.LogWarning("PUN is in development mode (development build). As the 'dev region' is not empty (" + PhotonServerSettings.DevRegion + ") it overrides the found best region. See PhotonServerSettings.");
+                //Debug.LogWarning("PUN is in development mode (development build). As the 'dev region' is not empty (" + PhotonServerSettings.DevRegion + ") it overrides the found best region. See PhotonServerSettings.");
 
                 string _finalDevRegion = PhotonServerSettings.DevRegion;
                 if (!_cachedRegionHandler.EnabledRegions.Any(p => p.Code == PhotonServerSettings.DevRegion))

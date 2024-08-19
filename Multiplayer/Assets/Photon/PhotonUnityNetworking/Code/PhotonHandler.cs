@@ -29,6 +29,8 @@ namespace Photon.Pun
     {
 
         private static PhotonHandler instance;
+
+        [Obsolete]
         internal static PhotonHandler Instance
         {
             get
@@ -89,6 +91,7 @@ namespace Photon.Pun
             }
         }
 
+        [Obsolete]
         protected virtual void OnEnable()
         {
             if (Instance != this)
