@@ -10,7 +10,8 @@ namespace Photon.Pun.Demo.PunBasics
     {
         public int life;
         private CharacterController control;
-        private Vector3 moveDir;
+        public CameraControlOnline cameraControl;
+        public Vector3 moveDir;
         public float speedMove, speedRot, gravity, jumpforce;
 
         public GameObject otherCanvas, mineCanvas;
@@ -29,6 +30,12 @@ namespace Photon.Pun.Demo.PunBasics
         private Quaternion currentRotation;
         private bool setRespawn;
 
+        public Transform player;
+        public Transform eyesTransform;
+
+        public float rotationXh;
+        public float rotationYh;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -39,7 +46,8 @@ namespace Photon.Pun.Demo.PunBasics
         void LocalStart()
         {
             control = GetComponent<CharacterController>();
-            Camera.main.GetComponent<CameraControlOnline>().SetTransform(transform);
+            Camera.main.GetComponent<CameraControlOnline>().SetTransform(eyesTransform);
+            cameraControl = Camera.main.GetComponent<CameraControlOnline>();
             nickname.text = "";
             initLife = life;
             otherCanvas.SetActive(false);
@@ -70,12 +78,13 @@ namespace Photon.Pun.Demo.PunBasics
 
             if(control.isGrounded)
             {
-                moveDir = new Vector3(0, moveDir.y, Input.GetAxis("Vertical") * speedMove);
+                moveDir = new Vector3(Input.GetAxis("Horizontal")* speedMove, 0, Input.GetAxis("Vertical") * speedMove);
                 moveDir = transform.TransformDirection(moveDir);
+                rotationXh = cameraControl.rotationX;
+                rotationYh = cameraControl.rotationY;
+                transform.localEulerAngles = new Vector3(rotationXh, rotationYh, 0);
 
-                transform.Rotate(Vector3.up * speedRot * Input.GetAxis("Horizontal") * Time.deltaTime);
-
-                if(Input.GetButtonDown("Jump"))
+                if (Input.GetButtonDown("Jump"))
                 {
                     moveDir.y = jumpforce;
                 }
