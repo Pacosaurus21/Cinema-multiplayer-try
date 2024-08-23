@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Video;
+using SFB;
 
 namespace Photon.Pun.Demo.PunBasics
 {
@@ -33,8 +35,9 @@ namespace Photon.Pun.Demo.PunBasics
         public Transform player;
         public Transform eyesTransform;
 
-        public float rotationXh;
-        public float rotationYh;
+        public float rotationXPlayer;
+        public float rotationYPlayer;
+
 
         // Start is called before the first frame update
         void Start()
@@ -80,9 +83,9 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 moveDir = new Vector3(Input.GetAxis("Horizontal")* speedMove, 0, Input.GetAxis("Vertical") * speedMove);
                 moveDir = transform.TransformDirection(moveDir);
-                rotationXh = cameraControl.rotationX;
-                rotationYh = cameraControl.rotationY;
-                transform.localEulerAngles = new Vector3(rotationXh, rotationYh, 0);
+                rotationXPlayer = cameraControl.rotationX;
+                rotationYPlayer = cameraControl.rotationY;
+                transform.localEulerAngles = new Vector3(rotationXPlayer, rotationYPlayer, 0);
 
                 if (Input.GetButtonDown("Jump"))
                 {
